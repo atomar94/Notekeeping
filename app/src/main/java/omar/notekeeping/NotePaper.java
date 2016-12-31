@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import omar.notekeeping.SaveLoad;
 
 public class NotePaper extends AppCompatActivity
@@ -27,10 +29,19 @@ public class NotePaper extends AppCompatActivity
         String titletext = titlet.getText().toString();
         String notepad = NotePadet.getText().toString();
         JSONObject jason = new JSONObject();
+
+        GregorianCalendar cal = new GregorianCalendar();
+        int year =      cal.get(Calendar.YEAR);
+        int month =     cal.get(Calendar.MONTH);
+        int day =       cal.get(Calendar.DAY_OF_MONTH);
+
         try
         {
             jason.put("title", titletext);
             jason.put("notepad", notepad);
+            jason.put("year", year);
+            jason.put("month", month);
+            jason.put("day", day);
         }
         catch (JSONException e)
         {
