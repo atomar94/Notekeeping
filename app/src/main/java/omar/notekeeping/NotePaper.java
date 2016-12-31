@@ -1,5 +1,6 @@
 package omar.notekeeping;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,6 +50,7 @@ public class NotePaper extends AppCompatActivity
         }
         sl.save(jason, this);
         JSONArray notearray = sl.load(this);
-        int x = 3;
+        Intent backtomain = new Intent(NotePaper.this, MainActivity.class);
+        startActivity(backtomain);
     }
 }
