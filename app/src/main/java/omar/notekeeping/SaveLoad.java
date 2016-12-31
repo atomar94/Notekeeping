@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,12 +19,14 @@ import android.content.Context;
 public class SaveLoad
 {
     String filename = "data.txt";
-    public void save(JSONArray j, Context c)
+    public void save(JSONObject j, Context c)
     {
         try
         {
+            JSONArray notearray = load(c);
             FileOutputStream fos = c.openFileOutput(filename, Context.MODE_PRIVATE);
-            fos.write(j.toString().getBytes());
+            notearray.put(j);
+            fos.write(notearray.toString().getBytes());
         }
         catch (FileNotFoundException e )
         {
@@ -34,7 +37,7 @@ public class SaveLoad
             e.printStackTrace();
         }
     }
-    public JSONArray load(JSONArray j, Context c)
+    public JSONArray load(Context c)
     {
         try
         {
@@ -46,6 +49,10 @@ public class SaveLoad
             while ((line = bufferedReader.readLine()) != null)
             {
                 sb.append(line);
+            }
+            if (sb.toString() == "")
+            {
+                return new JSONArray();
             }
             return new JSONArray(sb.toString());
         }
